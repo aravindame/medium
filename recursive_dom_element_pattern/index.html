@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <title>HTML Document with complex inner nodes</title>
+</head>
+
+<body>
+    <div class='change'>
+        Level 1
+    </div>
+    <div>
+        <div>
+            Level 2
+        </div>
+        <div class='change'>
+            Level 2
+        </div>
+    </div>
+    <div>
+        Level 1
+    </div>
+    <div>
+        <div>
+            Level 2
+        </div>
+        <div>
+            <div class='change'>
+                Level 3
+            </div>
+            <div>
+                Level 3
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    (function domTraversal(parentElement){
+      parentElement.childNodes.forEach((element) => {
+        if(element.innerText && element.className === 'change'){
+            element.innerText = `${element.innerText} changed`
+        }
+        if(element.hasChildNodes()){
+            domTraversal(element);
+        }
+        return;
+      });
+    })(document.querySelector('body'))
+</script>
+</html>
